@@ -99,3 +99,12 @@ app.listen(8080, () => {
     console.log("listening to the port 8080");
   });
   
+
+  <%if(!currUser){%>
+    <a class="nav-link " href="/signup"> <b>Sign Up </b></a>
+    <a class="nav-link" href="/login"><b> Log in </b></a>
+  <%}%>
+
+  <%if(currUser){%>
+    <a class="nav-link" href="logout"><b> Log out </b></a>
+   <%}%>
