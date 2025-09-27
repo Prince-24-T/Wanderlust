@@ -1,50 +1,54 @@
 const Listing = require("./models/listing");
-const Review = require("./models/reviews");
+const Review = require("./models/reviews.js");
 const ExpressError = require("./utils/ExpressError.js");
-module.exports.isLogin = (req,res,next)=>{
-   
-    // console.log(req.path,"...",req.originalUrl);
+module.exports.isLogin = (req, res, next) => {
+  // console.log(req.path,"...",req.originalUrl);
 
-    if(!req.isAuthenticated()){
-        req.session.redirectUrl = req.originalUrl;
-        req.flash("error", "you must be logged in to create listings");
-        res.redirect("/login");
-    
-      }
-else{
+  if (!req.isAuthenticated()) {
+    req.session.redirectUrl = req.originalUrl;
+    req.flash("error", "you must be logged in to create listings");
+    res.redirect("/login");
+  } else {
     next();
-}
-}
+  }
+};
 
+module.exports.saveRedirectUrl = (req, res, next) => {
+  if (req.session.redirectUrl) {
+    res.locals.redirectUrl = req.session.redirectUrl;
+  }
+  next();
+};
 
-module.exports.saveRedirectUrl = (req ,res , next)=>{
-    if(req.session.redirectUrl){
-        res.locals.redirectUrl = req.session.redirectUrl;
-    }
-    next()
-}
+module.exports.isOwner = async (req, res, next) => {
+  let { id } = req.params;
 
-module.exports.isOwner = async(req ,res ,next)=>{
-    let {id} = req.params;
-    let listing = await Listing.findById(id);
-      if(!listing.owner._id.equals(res.locals.currUser._id)){
-        console.log("listings id", listing._id);
-        console.log("currId",res.locals.currUser._id);
-        req.flash("error","you are not the owner of this listings");
-       return res.redirect(`/listings/${id}`);
-      }
-    
-      next();
-}
+  let listing = await Listing.findById(id);
 
-module.exports.isreviewAuthor = async(req ,res ,next)=>{
-    let { id , reviewId} = req.params;
-    let review = await Review.findById(reviewId);
-    console.log(review.author);
-      if(!review.author.equals(res.locals.currUser._id)){
-        req.flash("error","you did not create this review");
-       return res.redirect(`/listings/${id}`);
-      }
-    
-      next();
-}
+  if (!listing) {
+    req.flash("error", "Listing not found");
+    return res.redirect("/listings");
+  }
+
+  console.log(listing);
+  if (!listing.owner._id.equals(res.locals.currUser._id)) {
+    console.log("listings id", listing._id);
+    console.log("currId", res.locals.currUser._id);
+    req.flash("error", "you are not the owner of this listings");
+    return res.redirect(`/listings/${id}`);
+  }
+
+  next();
+};
+
+module.exports.isreviewAuthor = async (req, res, next) => {
+  let { id, reviewId } = req.params;
+  let review = await Review.findById(reviewId);
+  console.log(review.author);
+  if (!review.author.equals(res.locals.currUser._id)) {
+    req.flash("error", "you did not create this review");
+    return res.redirect(`/listings/${id}`);
+  }
+
+  next();
+};

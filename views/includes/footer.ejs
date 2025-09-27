@@ -1,16 +1,55 @@
 <footer>
-
-    <div class="f-into">
-        <div class="f-info-socials">
-        <a href=""><i class="fa-brands fa-facebook"></i></a>
-        <a href=""><i class="fa-brands fa-instagram"></i></a>
-        <a href=""><i class="fa-brands fa-twitter"></i></a>
-        </div>
-        <div class="f-info-brand"> Wanderlust Private Limited</div>
-        <div class="f-into-links">
-            <a href="/privacy">Privacy</a>
-            <a href="/terms">Terms</a>
-        </div>
-
+  <div class="container py-4">
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-center text-center text-md-start gap-3">
+      
+      <!-- Social Icons -->
+      <div class="f-info-socials">
+        <a href="" class="me-2"><i class="fa-brands fa-facebook fa-lg"></i></a>
+        <a href="" class="me-2"><i class="fa-brands fa-instagram fa-lg"></i></a>
+        <a href=""><i class="fa-brands fa-twitter fa-lg"></i></a>
+      </div>
+      
+      <!-- Brand Name -->
+      <div class="f-info-brand">
+        Wanderlust Private Limited
+      </div>
+      
+      <!-- Links -->
+      <div class="f-info-links">
+        <a href="/privacy" class="me-2">Privacy</a>
+        <a href="/terms">Terms</a>
+      </div>
     </div>
+  </div>
 </footer>
+
+<style>
+  footer {
+    background-color: #f8f9fa; /* light background */
+    color: #333;
+  }
+
+  footer a {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  footer a:hover {
+    color: #000;
+  }
+
+  .f-info-socials i {
+    transition: transform 0.2s;
+  }
+
+  .f-info-socials i:hover {
+    transform: scale(1.2);
+  }
+
+  /* On small screens, center everything */
+  @media (max-width: 767px) {
+    .f-info-socials, .f-info-brand, .f-info-links {
+      text-align: center;
+    }
+  }
+</style>

@@ -1,45 +1,89 @@
-<nav class="navbar navbar-expand-lg bg-body-light border-bottom sticky-top">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="/listings"><i class="fa-solid fa-compass"></i></a>
-      <button class="navbar-toggler" type="button"
-       data-bs-toggle="collapse" 
-       data-bs-target="#navbarNavAltMarkup" 
-       aria-controls="navbarNavAltMarkup" 
-       aria-expanded="false"
-        aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav">
-          
-          <a class="nav-link" href="/listings"> Explore</a>
+<nav class="navbar navbar-expand-lg navbar-light  sticky-top">
+  <div class="container-fluid">
 
-         
-      
-          
-        </div>
-<div class="navbar-nav ms-auto">
-  <form class="d-flex search" role="search" >
-    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-    <button class="btn btn-outline-success" type="submit">Search</button>
-  </form>
-</div>
-      
-        <div class="navbar-nav ms-auto">
+    <!-- Brand -->
+    <a class="navbar-brand text-primary fs-6 p-3 " href="/listings"><i class="fa-solid fa-compass"></i> MyApp</a>
 
-         
-          <a class="nav-link" href="/listings/new">Add new listing</a>
-          <%if(!currUser){%>
-            <a class="nav-link " href="/signup"> <b>Sign Up </b></a>
-            <a class="nav-link" href="/login"><b> Log in </b></a>
-          <%}%>
+    <!-- Toggler for mobile -->
+    <button class="navbar-toggler" type="button"
+      data-bs-toggle="collapse" 
+      data-bs-target="#navbarNavAltMarkup" 
+      aria-controls="navbarNavAltMarkup" 
+      aria-expanded="false"
+      aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-          <%if(currUser){%>
-            <a class="nav-link" href="logout"><b> Log out </b></a>
-           <%}%> 
-          
-          
+    <!-- Navbar links -->
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <!-- Left side links -->
+      <div class="navbar-nav me-auto mb-2 mb-lg-0">
+        <a class="nav-link text-white" href="/listings">Explore</a>
+        <a class="nav-link text-white" href="/listings/new">Add New Listing</a>
+      </div>
+
+      <!-- Search and Auth stacked on small screens -->
+      <div class="d-flex flex-column flex-lg-row align-items-stretch align-items-lg-center gap-2 gap-lg-0">
+        <!-- Search -->
+      <form class="d-flex flex-grow-1 mb-2 mb-lg-0" role="search">
+  <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+  <button class="btn btn-outline-primary w-100 w-lg-auto" type="submit">Search</button>
+</form>
+
+        <!-- Authentication Links -->
+        <div class="navbar-nav d-flex flex-row flex-lg-row gap-2 justify-content-lg-end">
+          <% if(!currUser){ %>
+            <a class="nav-link text-white" href="/signup"><b>Sign Up</b></a>
+            <a class="nav-link text-white" href="/login"><b>Log In</b></a>
+          <% } %>
+
+          <% if(currUser){ %>
+            <a class="nav-link text-white" href="/logout"><b>Log Out</b></a>
+          <% } %>
         </div>
       </div>
     </div>
-  </nav>
+  </div>
+</nav>
+<style>
+  /* Collapse menu background color and spacing */
+  @media (max-width: 991px) {
+    .navbar-collapse {
+      background-color: rgba(255, 255, 255, 0.8); /* very light / translucent */
+      backdrop-filter: blur(8px); /* blur effect */
+      -webkit-backdrop-filter: blur(8px); /* Safari support */
+      padding: 1rem;
+      margin-top: 0.5rem;
+      border-radius: 0.5rem; /* optional: rounded edges */
+    }
+
+    .navbar-collapse .navbar-nav {
+      flex-direction: column;
+      width: 100%;
+    }
+
+    .navbar-collapse .d-flex {
+      flex-direction: column;
+      width: 100%;
+    }
+
+    .navbar-collapse .d-flex form {
+      width: 100%;
+      margin-bottom: 0.5rem;
+    }
+
+    .navbar-collapse .d-flex .btn {
+      width: 100%;
+    }
+  }
+
+  /* Make links dark on light background */
+  .navbar-collapse .nav-link {
+    color: #007bff !important; /* dark blue for contrast */
+    font-weight: 500;
+  }
+
+  .navbar-brand {
+    font-weight: bold;
+  }
+</style>
